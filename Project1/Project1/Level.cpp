@@ -2,12 +2,35 @@
 
 void Level::Update(Player * player, int i, bool *isImpact) {
 	*isImpact = false;
-	//thread human(&Level::drawHuman,this, player);
-	while (true) {
-		//for (int i = 0; i < lane.size(); ++i) {
+	if (lane[i]->hasTrafficLight()) {
+		thread th(&TrafficLight::runTrafficLight, lane[i]->getTrafficLight());
+		while (true) {
 			if (lane[i]->PlayerIsHere())
-				*isImpact = lane[i]->Update(1);
-			else lane[i]->Update();
+				if (!lane[i]->getTrafficLight()->IsRed())
+					*isImpact = lane[i]->Update(0);
+				else *isImpact = lane[i]->Update(1);
+			else {
+				if (!lane[i]->getTrafficLight()->IsRed())
+					lane[i]->Update();
+			}
+			mtx.lock();
+			drawObject(i);
+			lane[player->getLane()]->drawPlayer();
+			mtx.unlock();
+			Sleep(lane[i]->getSpeed());
+			if (*isImpact) {
+				if (th.joinable()) th.join();
+				return;
+			}
+		}
+	}
+	else {
+		while (true) {
+			if (lane[i]->PlayerIsHere())
+					*isImpact = lane[i]->Update(0);
+			else {
+					lane[i]->Update();
+			}
 			mtx.lock();
 			drawObject(i);
 			lane[player->getLane()]->drawPlayer();
@@ -17,7 +40,7 @@ void Level::Update(Player * player, int i, bool *isImpact) {
 				return;
 			}
 		}
-	//}
+	}
 }
 size_t Level::size() {
 	return lane.size();

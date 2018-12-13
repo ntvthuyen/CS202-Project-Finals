@@ -64,3 +64,19 @@ void  Player::setLane(int lane) {
 int  Player::getLane() {
 	return lane;
 }
+void Player::drawInfo(int column, int row,Color color1, Color color2) {
+	Draw a;
+	a.cursorPosition(column, row);
+	a.setTextColor(color1);
+	cout << "Name: " ;
+	a.cursorPosition(column, row + 3);
+	cout << "Highest Level:";
+	a.setTextColor(color2);
+	a.cursorPosition(column, row +1);
+	cout << pName.substr(0,15);
+	a.cursorPosition(column, row+4); 
+	cout << highestlevel;
+}
+void Player::record(int level) {
+	if (level > highestlevel) highestlevel = level;
+}

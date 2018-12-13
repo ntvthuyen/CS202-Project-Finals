@@ -71,7 +71,9 @@ int main() {
 	int check = startScreen();
 	if (check == 3) exit(0);
 	//system("pause");
-	Player player("Test", 10);
+	TrafficLight trafficlight;
+	TrafficLight trafficlight2(true,9000,4000);
+	Player player("Teasdasdst", 10,1);
 	vector<mObject*> obj;
 	obj.push_back(new Bird(RIGHT, 3));
 	obj.push_back(new Dino(RIGHT, 15));
@@ -82,22 +84,20 @@ int main() {
 	obj1.push_back(new Bird(LEFT, 4));
 	vector<mObject*> obj2;
 	Lane lane0(obj2, RIGHT, 100, NULL);
-	Lane lane(obj, RIGHT, 100, NULL);
-	Lane lane1(obj1, LEFT, 200, NULL);
+	Lane lane(obj, RIGHT, 100, NULL, &trafficlight2);
+	Lane lane1(obj1, LEFT, 200, NULL, &trafficlight);
 	Lane lane3(obj2, RIGHT, 100, &player);
 
 	vector<Lane*> l;
 	l.push_back(&lane0);
 	l.push_back(&lane);
 	l.push_back(&lane1);
-	l.push_back(&lane);
-	l.push_back(&lane1);
-	l.push_back(&lane1);
 	l.push_back(&lane3);
 	vector<Level> level;
 	level.push_back(l);
+	level.push_back(l);
 	Game game(&player, level, 0);
-	game.playing(0);
+	game.playing();
 	system("pause");
 	return 0;
 }

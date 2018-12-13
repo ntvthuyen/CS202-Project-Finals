@@ -52,8 +52,9 @@ public:
 	void drawDino(int column, int row);
 	void drawButton(string text, Color color, int column, int row);
 	void drawFrame(int column, int row, Color color = BLACK);
-	int drawNotification(int column, int row, string text, Color frame = RED, Color ctext = WHITE, bool canChoose = false);
+	int drawNotification(int column, int row, string text, string text2 = " ", Color frame = RED, Color ctext = WHITE, bool canChoose = false);
 	void drawTrafficLight(int column, int row, bool isRed);
+	void drawNumber(int column, int row, int number, Color color = WHITE);
 };
 	
 #endif

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "object.h"
-
+#include "trafficlight.h"
 using namespace std;
 
 class Lane{
@@ -12,9 +12,9 @@ private:
 	vector<mObject*> obj;
 	Direction direct;
 	int speed;
-	bool hasTrafficLight;
+	TrafficLight * trafficLight;
 public:
-	Lane(vector<mObject*> obj, Direction direct, int speed, Player * player = NULL, bool hasTrafficLight = false) : direct(direct), obj(obj), player(player), speed(speed), hasTrafficLight(hasTrafficLight){}
+	Lane(vector<mObject*> obj, Direction direct, int speed, Player * player = NULL, TrafficLight * trafficLight = NULL) : direct(direct), obj(obj), player(player), speed(speed), trafficLight(trafficLight){}
 	void playerIn(Player * &player);
 	void playerOut();
 	void drawPlayer();
@@ -22,9 +22,10 @@ public:
 	void Update();
 	bool isImpact(Player &player) const;
 	bool PlayerIsHere();
-	bool Update(int);
-	bool hasATrafficLight();
+	bool Update(int t);
+	bool hasTrafficLight();
 	int getSpeed();
+	TrafficLight *getTrafficLight();
 	~Lane(){
 	}
 };
