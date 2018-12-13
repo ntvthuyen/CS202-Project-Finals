@@ -116,7 +116,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="HeaderFile\file.h" />
     <ClInclude Include="HeaderFile\game.h" />
+    <ClInclude Include="HeaderFile\Header.h" />
     <ClInclude Include="HeaderFile\lane.h" />
     <ClInclude Include="HeaderFile\Level.h" />
     <ClInclude Include="HeaderFile\menu.h" />
@@ -125,6 +127,7 @@
     <ClInclude Include="HeaderFile\UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="file.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Lane.cpp" />
     <ClCompile Include="Level.cpp" />

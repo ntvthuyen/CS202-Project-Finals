@@ -66,6 +66,7 @@ public:
 	void setLane(int lane);
 	void record(int level);
 	int getLane();
+	void drawEffect(int row);
 	void drawInfo(int column, int row, Color color1 = YELLOW , Color = BLUE);
 };
 
