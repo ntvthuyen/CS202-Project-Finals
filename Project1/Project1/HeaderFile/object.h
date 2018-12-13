@@ -10,7 +10,7 @@ using namespace std;
 
 class Object {
 private:
-	int w; // w h = real w h / 2
+	int w; 
 protected:
 	int position;
 public:
@@ -21,7 +21,6 @@ public:
 	int getPosition();
 	int getW();
 	virtual void draw(int row) = 0;
-	//virtual void drawBlank() = 0;
 };
 class mObject : public Object {
 protected:
@@ -58,13 +57,16 @@ class Player : public Object {
 private:
 	string pName;
 	int lane;
+	int highestlevel;
 public:
-	Player(string pName, int position = 0, int w = 1) : Object(position, w) {}
+	Player(string pName, int position = 0, int highestlevel = 0) : Object(position, 1), pName(pName),highestlevel(highestlevel) {}
 	void moveForward();
 	void draw(int row);
 	bool isImpact(mObject &obj);
 	void setLane(int lane);
+	void record(int level);
 	int getLane();
+	void drawInfo(int column, int row, Color color1 = YELLOW , Color = BLUE);
 };
 
 #endif

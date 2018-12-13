@@ -312,7 +312,7 @@ void Draw::drawFrame(int column, int row, Color color) {
 	cursorPosition(column, row + 5);
 	cout << "||___________________________||";
 }
-int Draw::drawNotification(int column, int row, string text, Color frame, Color ctext, bool canChoose) {
+int Draw::drawNotification(int column, int row, string text, string text2, Color frame, Color ctext, bool canChoose) {
 	setTextColor(frame);
 	cursorPosition(column, row);
 	cout << " ___________________________";
@@ -329,6 +329,8 @@ int Draw::drawNotification(int column, int row, string text, Color frame, Color 
 	cursorPosition(column+1, row + 2 );
 	setTextColor(ctext);
 	cout << text;
+	cursorPosition(column + 1, row + 3);
+	cout << text2;
 	if (canChoose) {
 	cursorPosition(column + 5, row + 4);
 	setTextColor(GREEN);
@@ -356,14 +358,149 @@ void Draw::drawTrafficLight(int column, int row, bool isRed) {
 	cursorPosition(column, row);
 	if (isRed) {
 		setTextColor(WHITE);
-		cout << char(219) << char(129);
+		cout << char(219) << char(219);
 		setTextColor(RED);
-		cout << char(219) << char(129);
+		cout << char(219) << char(219);
 	}
 	else {
 		setTextColor(GREEN);
-		cout << char(219) << char(129);
+		cout << char(219) << char(219);
 		setTextColor(WHITE);
-		cout << char(219) << char(129);
+		cout << char(219) << char(219);
+	}
+}	
+void Draw::drawNumber(int column, int row, int number, Color color) {
+	setTextColor(color);
+	switch (number) {
+	case 0:{
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "#    #";
+		cursorPosition(column, row + 2);
+		cout << "#    #";
+		cursorPosition(column, row + 3);
+		cout << "#    #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 1: {
+		cursorPosition(column, row);
+		cout << "####  ";
+		cursorPosition(column, row + 1);
+		cout << "  ##  ";
+		cursorPosition(column, row + 2);
+		cout << "  ##  ";
+		cursorPosition(column, row + 3);
+		cout << "  ##  ";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 2: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "     #";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "#     ";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 3: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "     #";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "     #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 4: {
+		cursorPosition(column, row);
+		cout << "#    #";
+		cursorPosition(column, row + 1);
+		cout << "#    #";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "     #";
+		cursorPosition(column, row + 4);
+		cout << "     #";
+		break;
+	}
+	case 5: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "#     ";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "     #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 6: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "#     ";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "#    #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 7: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "     #";
+		cursorPosition(column, row + 2);
+		cout << "     #";
+		cursorPosition(column, row + 3);
+		cout << "#    #";
+		cursorPosition(column, row + 4);
+		cout << "     #";
+		break;
+	}
+	case 8: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "#    #";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "#    #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
+	case 9: {
+		cursorPosition(column, row);
+		cout << "######";
+		cursorPosition(column, row + 1);
+		cout << "#    #";
+		cursorPosition(column, row + 2);
+		cout << "######";
+		cursorPosition(column, row + 3);
+		cout << "     #";
+		cursorPosition(column, row + 4);
+		cout << "######";
+		break;
+	}
 	}
 }

@@ -4,7 +4,6 @@
 #include "lane.h"
 #include <iostream>
 #include <mutex>
-
 extern std::mutex mtx;
 
 class Level {
@@ -17,7 +16,6 @@ public:
 	void goNextLane(int cl, Player * player);
 	void goToLane(int cl, Player * player);
 	void Update(Player * player,int i, bool *isImpact);
-	void drawHuman(Player * player);
 	void drawLine();
 	void drawObject(int i);
 };

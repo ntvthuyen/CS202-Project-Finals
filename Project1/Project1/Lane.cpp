@@ -7,10 +7,12 @@ void Lane::Update() {
 		else obj[i]->moveLeft();
 	}
 }
-bool Lane::Update(int) {
-	for (int i = 0; i < obj.size(); i++) {
-		if (direct) obj[i]->moveRight();
-		else obj[i]->moveLeft();
+bool Lane::Update(int t) {
+	if (t == 0) {
+		for (int i = 0; i < obj.size(); i++) {
+			if (direct) obj[i]->moveRight();
+			else obj[i]->moveLeft();
+		}
 	}
 	if (player) {
 		return isImpact(*player);
@@ -18,9 +20,10 @@ bool Lane::Update(int) {
 	return false;
 }
 void Lane::drawLane(int row){
-	View v;
-	v.cursorPosition(0, row);
+	Draw v;
 	v.setTextColor(15);
+	
+	v.cursorPosition(0, row);
 	cout<< "#                                                                                                   #" << endl
 		<< "#                                                                                                   #" << endl
 		<< "#                                                                                                   #" << endl
@@ -31,6 +34,12 @@ void Lane::drawLane(int row){
 		<< "#                                                                                                   #" << endl;
 		for (int i = 0; i < obj.size(); i++) {
 			obj[i]->draw(row + 3);
+		}
+		if (hasTrafficLight()) {
+			if (direct == LEFT)
+				v.drawTrafficLight(1, row, trafficLight->IsRed());
+			else
+				v.drawTrafficLight(96, row, trafficLight->IsRed());
 		}
 }
 bool Lane::isImpact(Player &player) const{
@@ -57,6 +66,10 @@ void Lane::drawPlayer() {
 		//			cout << player->getPosition();
 	}
 }
-bool Lane::hasATrafficLight() {
-	return hasTrafficLight;
+bool Lane::hasTrafficLight() {
+	if (trafficLight != NULL) return true;
+	return false;
+}
+TrafficLight * Lane::getTrafficLight() {
+	return trafficLight;
 }

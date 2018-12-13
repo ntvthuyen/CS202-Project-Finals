@@ -12,8 +12,9 @@ private:
 	vector<Level> levelList;
 	int level;
 public:
-	Game(Player * player, vector<Level> levelList, int level): player(player), levelList(levelList), level(level){}
-	void playing(int level);
+	Game(Player * player, vector<Level> levelList, int level = 0): player(player), levelList(levelList), level(level){}
+	void playing();
+	void drawLevel();
 };
 
 #endif
