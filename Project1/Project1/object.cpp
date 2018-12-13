@@ -25,8 +25,7 @@ void Player::draw(int row) {
 	drawer.drawHuman(getPosition(), row + 3);
 }
 bool Player::isImpact(mObject &obj) {
-	if (obj.getPosition() + obj.getW() == getPosition() - getW()) return true;
-	if (obj.getPosition() - obj.getW() == getPosition() + getW()) return true;
+	if (abs(obj.getPosition() - position) < obj.getW() + getW()) return true;
 	return false;
 }
 void Player::moveForward() {
@@ -79,4 +78,8 @@ void Player::drawInfo(int column, int row,Color color1, Color color2) {
 }
 void Player::record(int level) {
 	if (level > highestlevel) highestlevel = level;
+}
+void Player::drawEffect(int row) {
+	Draw a;
+	a.drawEffect(position, row);
 }

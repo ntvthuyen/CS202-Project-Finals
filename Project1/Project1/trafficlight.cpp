@@ -1,7 +1,7 @@
 #include "HeaderFile/trafficlight.h"
 
 void TrafficLight::runTrafficLight() {
-	while(true) {
+	while(!stop) {
 		isRed = false;
 		Sleep(greenTime);
 		isRed = true;
@@ -10,4 +10,10 @@ void TrafficLight::runTrafficLight() {
 }
 bool TrafficLight::IsRed() {
 	return isRed;
+}
+void TrafficLight::Stop() {
+	stop = true;
+}
+void TrafficLight::Run() {
+	stop = false;
 }

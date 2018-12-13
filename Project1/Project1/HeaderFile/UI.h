@@ -55,6 +55,8 @@ public:
 	int drawNotification(int column, int row, string text, string text2 = " ", Color frame = RED, Color ctext = WHITE, bool canChoose = false);
 	void drawTrafficLight(int column, int row, bool isRed);
 	void drawNumber(int column, int row, int number, Color color = WHITE);
+	void drawEffect(int column, int row, Color color = RED);
+	void deleteHuman(int column, int row);
 };
 	
 #endif

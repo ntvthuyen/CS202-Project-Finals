@@ -59,6 +59,14 @@ void Draw::drawHuman(int column, int row) {
 	cursorPosition(column , row + 1);	
 	cout << char(186);
 }
+void Draw::deleteHuman(int column, int row) {
+	cursorPosition(column - 1, row - 1);
+	cout << "   ";
+	cursorPosition(column - 1, row);
+	cout << "   ";
+	cursorPosition(column - 1, row + 1);
+	cout << "   ";
+}
 //   /\
 // =(  o)>
 // 
@@ -471,7 +479,7 @@ void Draw::drawNumber(int column, int row, int number, Color color) {
 		cursorPosition(column, row + 2);
 		cout << "     #";
 		cursorPosition(column, row + 3);
-		cout << "#    #";
+		cout << "     #";
 		cursorPosition(column, row + 4);
 		cout << "     #";
 		break;
@@ -503,4 +511,54 @@ void Draw::drawNumber(int column, int row, int number, Color color) {
 		break;
 	}
 	}
+}
+void Draw::drawEffect(int column, int row, Color color) {
+	deleteHuman(column, row + 9);
+	setTextColor(RED);
+	cursorPosition(column - 2, row);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 3, row-1);
+	setTextColor(BLUE);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 4, row + 1);
+	setTextColor(YELLOW);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column, row);
+	setTextColor(15);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 1, row  -2 );
+	setTextColor(YELLOW);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column, row  - 2);
+	setTextColor(BLUE);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 2, row  + 1);
+	Sleep(100);
+	setTextColor(15);
+	cout << "CRASH!!";
+	setTextColor(PURPLE);
+	cursorPosition(column + 4, row + 2);
+	cout << "CRASH!!";
+	Sleep(100);
+	setTextColor(LIGHTBLUE);
+	cursorPosition(column  - 2, row + 2);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 3, row - 1);
+	setTextColor(LIGHTBLUE);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column - 4, row + 1);
+	setTextColor(YELLOW);
+	cout << "CRASH!!";
+	Sleep(100);
+	cursorPosition(column, row);
+	setTextColor(GREEN);
+	cout << "CRASH!!";
 }

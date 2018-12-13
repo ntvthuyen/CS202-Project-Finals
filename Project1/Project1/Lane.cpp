@@ -22,7 +22,7 @@ bool Lane::Update(int t) {
 void Lane::drawLane(int row){
 	Draw v;
 	v.setTextColor(15);
-	
+
 	v.cursorPosition(0, row);
 	cout<< "#                                                                                                   #" << endl
 		<< "#                                                                                                   #" << endl
@@ -32,15 +32,16 @@ void Lane::drawLane(int row){
 		<< "#                                                                                                   #" << endl
 		<< "#                                                                                                   #" << endl
 		<< "#                                                                                                   #" << endl;
-		for (int i = 0; i < obj.size(); i++) {
+	if (hasTrafficLight()) {
+		if (direct == LEFT)
+			v.drawTrafficLight(1, row, trafficLight->IsRed());
+		else
+			v.drawTrafficLight(96, row, trafficLight->IsRed());
+	}
+	for (int i = 0; i < obj.size(); i++) {
 			obj[i]->draw(row + 3);
 		}
-		if (hasTrafficLight()) {
-			if (direct == LEFT)
-				v.drawTrafficLight(1, row, trafficLight->IsRed());
-			else
-				v.drawTrafficLight(96, row, trafficLight->IsRed());
-		}
+		
 }
 bool Lane::isImpact(Player &player) const{
 	for(int i = 0; i < obj.size();i++)	
@@ -73,3 +74,65 @@ bool Lane::hasTrafficLight() {
 TrafficLight * Lane::getTrafficLight() {
 	return trafficLight;
 }
+void Lane::_Update(bool *isImpact) {
+	*isImpact = false;
+	if (hasTrafficLight()) {
+		thread th(&TrafficLight::runTrafficLight, getTrafficLight());
+		while (!stop) {
+			if (PlayerIsHere())
+				if (!getTrafficLight()->IsRed())
+					*isImpact = Update(0);
+				else *isImpact = Update(1);
+			else {
+				if (!getTrafficLight()->IsRed())
+					Update();
+			}
+			mtx.lock();
+			drawObject();
+			if(PlayerIsHere()) drawPlayer();
+			mtx.unlock();
+			Sleep(getSpeed());
+			if (*isImpact) {
+				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
+				th.detach();
+				if (th.joinable())th.join();
+				return;
+			}
+		}
+		th.detach();
+		if(th.joinable())th.join();
+	}
+	else {
+		while (!stop) {
+			if (PlayerIsHere())
+				*isImpact = Update(0);
+			else {
+				Update();
+			}
+			mtx.lock();
+			drawObject();
+			if (PlayerIsHere()) drawPlayer();
+			mtx.unlock();
+			Sleep(getSpeed());
+			if (*isImpact) {
+				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
+				return;
+			}
+		}
+	}
+}
+void Lane::drawObject() {
+	int row = lane * 9 + 1;
+	drawLane(row);
+}
+void Lane::Run() {
+	if (trafficLight)trafficLight->Run();
+	stop = false;
+}
+void Lane::Stop() {
+	if (trafficLight)trafficLight->Stop();
+	stop = true;
+}	
+void Lane::setLaneNumber(int i) {
+	lane = i;
+};
