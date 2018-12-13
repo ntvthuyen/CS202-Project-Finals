@@ -104,7 +104,10 @@ int main() {
 	Lane lane5(obj5, LEFT, 100, NULL);
 	vector<Lane*> l;
 	l.push_back(&lane);
-	l.push_back(&lane1);
+	l.push_back(&lane3);
+	l.push_back(&lane5);
+
+	l.push_back(&lane4);
 	l.push_back(&lane2);
 	vector<Lane*> l2;
 	l2.push_back(&lane3);

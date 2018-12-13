@@ -25,7 +25,7 @@ public:
 	void drawLane(int row);
 	void setLaneNumber(int i);
 	void Update();
-	void _Update(bool *isImpact);
+	void _Update(bool *isImpact, int *mode);
 	void drawObject();
 	void Run();
 	void Stop();

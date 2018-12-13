@@ -23,7 +23,7 @@ void Game::playing(){
 	vector<thread> th;
 	bool isImpact=false;
 	for (int i = 0; i < levelList[level].size(); i++) {
-		th.push_back(thread(&Lane::_Update, levelList[level].getLane(i), &isImpact));
+		th.push_back(thread(&Lane::_Update, levelList[level].getLane(i), &isImpact, &mode));
 	}
 	//levelList[level].Stop();
 	/*for (int i = 0; i < levelList[level].size(); i++) {
@@ -35,7 +35,6 @@ void Game::playing(){
 			system("color 70");
 			levelList[level].Stop();
 			for (int i = 0; i < levelList[level].size(); i++)
-				//	th[i].detach();
 			if (th[i].joinable()) th[i].join();
 			int choice = a.drawNotification(40, 20, " YOU LOSE!", " Wanna try again!??", 242, 249, true);
 			if (choice == 0) { 
@@ -52,56 +51,67 @@ void Game::playing(){
 			vector<string> item;
 			item.push_back("          Resume");
 			item.push_back("          Save game");
+			if(mode == 0)
+				item.push_back("          Mode:EASY");
+			else if (mode ==1 )
+				item.push_back("          Mode:NORMAL");
+			else
+				item.push_back("          Mode:HARD");
+			if(ONSOUND)
+			item.push_back("          Sound:ON");
+			else
+			item.push_back("          Sound:OFF");
 			item.push_back("          Exit");
 			Menu menu(item,42,19,WHITE,BLUE);
 			int temp = menu.runMenu();
 			switch (temp) {
 			case 1: {
-				break;
+				//break;
 			}
 			case 2: {
+				mode = ++mode % 3;
+				break;
+			}
+			case 3: {
+				ONSOUND = !ONSOUND;
+				break;
+			}
+			case 4: {
 				levelList[level].Stop();
 				for (int i = 0; i < levelList[level].size(); i++)
-					//	th[i].detach();
 					if (th[i].joinable()) th[i].join();
 				mtx.unlock();
 				exit(0);
 			}
 			}
+			
+			item.clear();
 			mtx.unlock();
 			levelList[level].Run();
 			levelList[level].drawLine();
+			drawLevel();
 		}
 		else if (z == 'a') {
-			//mtx.lock();
 			player->moveLeft();
-			//mtx.unlock();
-
 		}
 		else if (z == 'w') {
 			if (player->getLane() != 0) {
 				levelList[level].goNextLane(player->getLane(), player);
-				//mtx.lock();
 				(player)->moveForward();
-				//mtx.unlock();
 			}
 			else {
 				system("color 61");
 				player->record(level);
-				//mtx.lock();
 				levelList[level].Stop();
 				for (int i = 0; i < levelList[level].size(); i++)
-					//	th[i].detach();
 					if (th[i].joinable()) th[i].join();
 				if (levelList.size() > level + 1) {
 					int choice = a.drawNotification(40, 20, " YOU'VE PASS THIS LEVEL!", " Wanna try next one?", 1, 15, true);
 					if (choice == 0) {
 						a.drawNotification(40, 20, " BYE!! See ya!!", " Press any key to exit!", 1, 15, true);
-						//mtx.unlock();
 						exit(0);
 					}
 					else {
-					//	mtx.unlock();
 						level++;
 						playing();
 					}
@@ -110,17 +120,14 @@ void Game::playing(){
 					system("color 90");
 					levelList[level].Stop();
 					for (int i = 0; i < levelList[level].size(); i++)
-						//	th[i].detach();
 						if (th[i].joinable()) th[i].join();
 					int choice = a.drawNotification(40, 20, "YOU'VE PASS ALL LEVEL!","Wanna try again?", RED, 15, true);
 					if (choice == 0) {
 						a.drawNotification(40, 20, "BYE!! See ya!!", "Press any key to exit!", RED, YELLOW, true);
 						_getch();
-						//mtx.unlock();
 						exit(0);
 					}
 					else {
-						//mtx.unlock();
 						level = 0;
 						playing();
 					}
@@ -136,7 +143,7 @@ void Game::playing(){
 }
 void Game::drawLevel() {
 	mtx.lock();
-	int temp = level;
+	int temp = level + 1;
 	Draw a;
 	a.cursorPosition(106, 1);
 	a.setTextColor(YELLOW); cout << "LEVEL";

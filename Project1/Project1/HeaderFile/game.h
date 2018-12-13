@@ -11,10 +11,13 @@ private:
 	Player * player;
 	vector<Level> levelList;
 	int level;
+	int mode;
+	bool ONSOUND;
 public:
-	Game(Player * player, vector<Level> levelList, int level = 0): player(player), levelList(levelList), level(level){}
+	Game(Player * player, vector<Level> levelList, int level = 0): player(player), levelList(levelList), level(level), ONSOUND(true), mode(0){}
 	void playing();
 	void drawLevel();
+
 };
 
 #endif
