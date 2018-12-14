@@ -3,6 +3,9 @@
 #include <thread>
 #include "HeaderFile/game.h"
 #include "HeaderFile/menu.h"
+
+	
+
 using namespace std;
 Draw a;
 int startScreen() {
@@ -65,11 +68,64 @@ int startScreen() {
 	return menu.runMenu();
 }
 int main() {
+	a.setTextColor(YELLOW);
+	cout << "\n\n                        THE CROSS ROAD GAME IS LOADING...";
+	Sound sound("loop2.wav","loop");
+	sound.open();
+	sound.play();
+	bool onSound = true;
 	system("color 07");
 	a.FixConsoleWindow();
 	a.ShowConsoleCursor(invisible);
-	int check = startScreen();
-	if (check == 3) exit(0);
+	int check = -1;
+	vector<string> lSetting;
+	lSetting.push_back("|Back");
+	lSetting.push_back("|Mode:NORMAL");
+	lSetting.push_back("|Sound:ON");
+	//sound.stop();
+	int mode = 1;
+	Menu setting(lSetting,49,7,WHITE,BLUE);
+	while (check) {
+		check = startScreen();
+		if (check == 0) {
+
+		}
+		else if (check == 1) {
+
+		}
+		else if (check == 2) {
+			a.cursorPosition(49,5);
+			a.setTextColor(YELLOW);
+			cout << "<SETTING>";
+			switch (setting.runMenu()) {
+			case 1: {
+				mode = ++mode % 3;
+				if (mode == 0)
+					setting.changeItem(1, "|Mode:EASY");
+				else if (mode == 1)
+					setting.changeItem(1, "|Mode:NORMAL");
+				else
+					setting.changeItem(1, "|Mode:HARD");
+				break;
+			}
+			case 2:{
+				onSound = !onSound;
+				if (onSound) {
+					setting.changeItem(2, "|SOUND:ON");
+					sound.open();
+					sound.play();
+				}
+				else {
+					setting.changeItem(2, "|SOUND:OFF");
+					sound.stop();
+				}
+				break;
+			}
+			}
+			
+		}
+		if (check == 3) exit(0);
+	}
 	//system("pause");
 	TrafficLight trafficlight;
 	TrafficLight trafficlight2(true,9000,4000);

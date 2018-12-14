@@ -17,8 +17,9 @@ private:
 	TrafficLight * trafficLight;
 	int lane;
 	bool stop;
+	thread *th;
 public:
-	Lane(vector<mObject*> obj, Direction direct, int speed, Player * player = NULL, TrafficLight * trafficLight = NULL) : direct(direct), obj(obj), player(player), speed(speed), trafficLight(trafficLight), stop(false), lane(0){}
+	Lane(vector<mObject*> obj, Direction direct, int speed, Player * player = NULL, TrafficLight * trafficLight = NULL) : direct(direct), obj(obj), player(player), speed(speed), trafficLight(trafficLight), stop(false), lane(0), th(NULL){}
 	void playerIn(Player * &player);
 	void playerOut();
 	void drawPlayer();
@@ -36,6 +37,7 @@ public:
 	int getSpeed();
 	TrafficLight *getTrafficLight();
 	~Lane(){
+		if (th) th->detach();
 	}
 };
 

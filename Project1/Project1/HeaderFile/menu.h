@@ -2,7 +2,7 @@
 #ifndef _menu_h_
 #define _menu_h_
 #include "UI.h"
-
+#include "sound.h"
 class Menu {
 private:
 	vector<string> item;
