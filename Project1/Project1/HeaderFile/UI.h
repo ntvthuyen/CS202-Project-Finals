@@ -9,6 +9,7 @@
 #include <vector>
 #include <Synchapi.h>
 #include <conio.h>
+#include <mmsystem.h>
 #include <cwchar>
 
 #define LIGHTBLUE 27

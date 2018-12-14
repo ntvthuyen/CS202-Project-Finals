@@ -7,10 +7,13 @@ void Menu::draw(int num) {
 }
 int Menu::runMenu(int choice) {
 	int z;
+	Sound sound("click.wav", "click");
+	//sound.open();
 	choice = 0;
 	draw(choice);
 	while (true) {
 		z = _getch();
+		sound._play();
 		switch (z) {
 		case 'w': {
 			choice = (--choice < 0) ? 0 : choice;

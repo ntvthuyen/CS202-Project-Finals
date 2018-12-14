@@ -14,7 +14,7 @@ private:
 	int mode;
 	bool ONSOUND;
 public:
-	Game(Player * player, vector<Level> levelList, int level = 0): player(player), levelList(levelList), level(level), ONSOUND(true), mode(0){}
+	Game(Player * player, vector<Level> levelList, int level = 0, int mode = 1): player(player), levelList(levelList), level(level), ONSOUND(true), mode(mode){}
 	void playing();
 	void drawLevel();
 

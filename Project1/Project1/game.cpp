@@ -1,6 +1,9 @@
 #include "HeaderFile/game.h"
 mutex mtx;
 void Game::playing(){
+	Sound sound("loop2.wav", "loop");
+	Sound jump("jump.wav", "jump");
+	Sound crash("crash.wav");
 	Draw a;
 	if (levelList[level].size() == 7) {
 		//a.changeFontSize(12);
@@ -31,20 +34,7 @@ void Game::playing(){
 	}*/
 	int z;
 	while (true) {
-		if (isImpact) {
-			system("color 70");
-			levelList[level].Stop();
-			for (int i = 0; i < levelList[level].size(); i++)
-			if (th[i].joinable()) th[i].join();
-			int choice = a.drawNotification(40, 20, " YOU LOSE!", " Wanna try again!??", 242, 249, true);
-			if (choice == 0) { 
-				exit(0); }
-			else {
-				playing();
-			}
-		}
-		else 
-		z = _getch(); 
+		 z = _getch(); 
 		if (z == 27) {
 			mtx.lock();
 			a.drawFrame(40, 17, WHITE);
@@ -74,6 +64,11 @@ void Game::playing(){
 			}
 			case 3: {
 				ONSOUND = !ONSOUND;
+				if (ONSOUND) {
+					sound.open();
+					sound.play();
+				}
+				else sound.stop();
 				break;
 			}
 			case 4: {
@@ -94,8 +89,9 @@ void Game::playing(){
 		else if (z == 'a') {
 			player->moveLeft();
 		}
-		else if (z == 'w') {
+		else if (z == 'w' && !isImpact) {
 			if (player->getLane() != 0) {
+				if(ONSOUND)jump._play();
 				levelList[level].goNextLane(player->getLane(), player);
 				(player)->moveForward();
 			}
@@ -139,7 +135,23 @@ void Game::playing(){
 			player->moveRight();
 			mtx.unlock();
 		}
+		if (isImpact) {
+			system("color 70");
+			levelList[level].Stop();
+			crash._play();
+			player->drawEffect((player->getLane()) * 9 + 7);
+			for (int i = 0; i < levelList[level].size(); i++)
+				if (th[i].joinable()) th[i].join();
+			int choice = a.drawNotification(40, 20, " YOU LOSE!", " Wanna try again!??", 242, 249, true);
+			if (choice == 0) {
+				exit(0);
+			}
+			else {
+				playing();
+			}
+		}
 	}
+
 }
 void Game::drawLevel() {
 	mtx.lock();

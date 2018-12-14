@@ -1,5 +1,4 @@
  #include "HeaderFile/UI.h"
-
 void View::FixConsoleWindow() {
 	HWND consoleWindow = GetConsoleWindow();
 	LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
@@ -294,7 +293,7 @@ void Draw::drawTruck(int column, int row, Direction direct){
 		setTextColor(GREEN);
 		cursorPosition(column - 6, row + 1);
 		setTextColor(YELLOW);
-		cout << "*";
+		cout << "*";	
 		setTextColor(RED);
 		cout << "-0-'-=0---0'";
 	}
@@ -319,7 +318,7 @@ void Draw::drawFrame(int column, int row, Color color) {
 	cout << "||                           ||";
 	cursorPosition(column, row + 5);
 	cout << "||                           ||";
-	cursorPosition(column, row + 6);
+	cursorPosition(column, row + 6);	
 	cout << "||                           ||";
 	cursorPosition(column, row + 7);
 	cout << "||___________________________||";
@@ -517,7 +516,6 @@ void Draw::drawNumber(int column, int row, int number, Color color) {
 	}
 }
 void Draw::drawEffect(int column, int row, Color color) {
-	deleteHuman(column, row + 9);
 	setTextColor(RED);
 	cursorPosition(column - 2, row);
 	cout << "CRASH!!";

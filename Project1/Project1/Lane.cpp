@@ -77,7 +77,7 @@ TrafficLight * Lane::getTrafficLight() {
 void Lane::_Update(bool *isImpact, int *mode) {
 	*isImpact = false;
 	if (hasTrafficLight()) {
-		thread th(&TrafficLight::runTrafficLight, getTrafficLight());
+		th = new thread(&TrafficLight::runTrafficLight, getTrafficLight());
 		while (!stop) {
 			if (PlayerIsHere())
 				if (!getTrafficLight()->IsRed())
@@ -93,14 +93,17 @@ void Lane::_Update(bool *isImpact, int *mode) {
 			mtx.unlock();
 			Sleep(getSpeed() - 25*(*mode));
 			if (*isImpact) {
-				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
-				th.detach();
-				if (th.joinable())th.join();
+				th->detach();
+				if (th->joinable())th->join();
+				if (PlayerIsHere()) {
+					Draw a;
+					a.deleteHuman(player->getPosition(), (player->getLane() + 1) * 9 + 7);
+				}
 				return;
 			}
 		}
-		th.detach();
-		if(th.joinable())th.join();
+		th->detach();
+		if(th->joinable())th->join();
 	}
 	else {
 		while (!stop) {
@@ -115,7 +118,10 @@ void Lane::_Update(bool *isImpact, int *mode) {
 			mtx.unlock();
 			Sleep(getSpeed() - 25*(*mode));
 			if (*isImpact) {
-				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
+				if (PlayerIsHere()) {
+					Draw a;
+					a.deleteHuman(player->getPosition(), (player->getLane() + 1) * 9 + 7);
+				}
 				return;
 			}
 		}
