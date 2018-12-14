@@ -3,9 +3,9 @@
 void TrafficLight::runTrafficLight() {
 	while(!stop) {
 		isRed = false;
-		Sleep(greenTime);
+		Sleep(greenTime*(!stop));
 		isRed = true;
-		Sleep(redTime);
+		Sleep(redTime*(!stop));
 	}
 }
 bool TrafficLight::IsRed() {

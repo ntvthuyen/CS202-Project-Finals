@@ -1,7 +1,14 @@
 #include "HeaderFile/game.h"
 mutex mtx;
 void Game::playing(){
-	Sound sound("loop2.wav", "loop");
+	Sound * sound;
+	if (level > 5) {
+		sound = new Sound("loop1.wav", "loop");
+	}
+	else
+		sound = new Sound("loop2.wav", "loop");
+
+	Sound victory("win.wav", "win");
 	Sound jump("jump.wav", "jump");
 	Sound crash("crash.wav");
 	Draw a;
@@ -65,17 +72,17 @@ void Game::playing(){
 			case 3: {
 				ONSOUND = !ONSOUND;
 				if (ONSOUND) {
-					sound.open();
-					sound.play();
+					sound->open();
+					sound->play();
 				}
-				else sound.stop();
+				else sound->stop();
 				break;
 			}
 			case 4: {
+				mtx.unlock();
 				levelList[level].Stop();
 				for (int i = 0; i < levelList[level].size(); i++)
 					if (th[i].joinable()) th[i].join();
-				mtx.unlock();
 				exit(0);
 			}
 			}
@@ -96,6 +103,7 @@ void Game::playing(){
 				(player)->moveForward();
 			}
 			else {
+				victory._play();
 				system("color 61");
 				player->record(level);
 				levelList[level].Stop();

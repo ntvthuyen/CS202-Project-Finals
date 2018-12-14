@@ -93,7 +93,8 @@ void Lane::_Update(bool *isImpact, int *mode) {
 			mtx.unlock();
 			Sleep(getSpeed() - 25*(*mode));
 			if (*isImpact) {
-				th->detach();
+				trafficLight->Stop();
+				//th->detach();
 				if (th->joinable())th->join();
 				if (PlayerIsHere()) {
 					Draw a;
@@ -102,7 +103,8 @@ void Lane::_Update(bool *isImpact, int *mode) {
 				return;
 			}
 		}
-		th->detach();
+		trafficLight->Stop();
+		//th->detach();
 		if(th->joinable())th->join();
 	}
 	else {
