@@ -321,6 +321,8 @@ void Draw::drawFrame(int column, int row, Color color) {
 	cursorPosition(column, row + 6);	
 	cout << "||                           ||";
 	cursorPosition(column, row + 7);
+	cout << "||                           ||";
+	cursorPosition(column, row + 8);
 	cout << "||___________________________||";
 }
 int Draw::drawNotification(int column, int row, string text, string text2, Color frame, Color ctext, bool canChoose) {

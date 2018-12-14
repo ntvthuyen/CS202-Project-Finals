@@ -60,12 +60,14 @@ private:
 	int highestlevel;
 public:
 	Player(string pName, int position = 0, int highestlevel = 0) : Object(position, 1), pName(pName),highestlevel(highestlevel) {}
+	int getLane();
+	int getHigestLevel();
+	string getName();
 	void moveForward();
 	void draw(int row);
 	bool isImpact(mObject &obj);
 	void setLane(int lane);
 	void record(int level);
-	int getLane();
 	void drawEffect(int row);
 	void drawInfo(int column, int row, Color color1 = YELLOW , Color = BLUE);
 };

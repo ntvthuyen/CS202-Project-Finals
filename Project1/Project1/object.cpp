@@ -74,7 +74,7 @@ void Player::drawInfo(int column, int row,Color color1, Color color2) {
 	a.cursorPosition(column, row +1);
 	cout << pName.substr(0,15);
 	a.cursorPosition(column, row+4); 
-	cout << highestlevel;
+	cout << highestlevel + 1;
 }
 void Player::record(int level) {
 	if (level > highestlevel) highestlevel = level;
@@ -82,4 +82,10 @@ void Player::record(int level) {
 void Player::drawEffect(int row) {
 	Draw a;
 	a.drawEffect(position, row);
+}
+int Player::getHigestLevel() {
+	return highestlevel;
+}
+string Player::getName() {
+	return pName;
 }
