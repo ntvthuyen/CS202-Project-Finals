@@ -23,5 +23,4 @@ public:
 	void Stop();
 	Lane * getLane(int i);
 };
-
 #endif

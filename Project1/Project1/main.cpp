@@ -67,6 +67,7 @@ int startScreen() {
 	Menu menu(item,49,7,WHITE,BLUE);
 	return menu.runMenu();
 }
+
 int main() {
 	a.setTextColor(YELLOW);
 	cout << "\n\n                        THE CROSS ROAD GAME IS LOADING...";
@@ -128,7 +129,7 @@ int main() {
 	}
 	//system("pause");
 	TrafficLight trafficlight;
-	TrafficLight trafficlight2(true,9000,4000);
+	TrafficLight trafficlight2(true,5000,4000);
 	Player player("Teasdasdst", 10,1);
 	vector<mObject*> obj;
 	obj.push_back(new Bird(RIGHT, 3));
