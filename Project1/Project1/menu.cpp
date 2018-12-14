@@ -5,9 +5,9 @@ void Menu::draw(int num) {
 	for (int i = 0; i < item.size(); i++)
 		draw.drawButton(item[i], (i == num) ? choose : normal, column, row + i);
 }
-int Menu::runMenu() {
+int Menu::runMenu(int choice) {
 	int z;
-	int choice = 0;
+	choice = 0;
 	draw(choice);
 	while (true) {
 		z = _getch();
@@ -27,5 +27,13 @@ int Menu::runMenu() {
 			return choice;
 		}
 		}
+	}
+}
+void Menu::changeItem(vector<string> item) {
+	this->item = item;
+}
+void Menu::changeItem(int i, string item) {
+	if (i < this->item.size()) {
+		this->item[i] = item;
 	}
 }

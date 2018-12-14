@@ -74,7 +74,7 @@ bool Lane::hasTrafficLight() {
 TrafficLight * Lane::getTrafficLight() {
 	return trafficLight;
 }
-void Lane::_Update(bool *isImpact) {
+void Lane::_Update(bool *isImpact, int *mode) {
 	*isImpact = false;
 	if (hasTrafficLight()) {
 		thread th(&TrafficLight::runTrafficLight, getTrafficLight());
@@ -91,7 +91,7 @@ void Lane::_Update(bool *isImpact) {
 			drawObject();
 			if(PlayerIsHere()) drawPlayer();
 			mtx.unlock();
-			Sleep(getSpeed());
+			Sleep(getSpeed() - 25*(*mode));
 			if (*isImpact) {
 				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
 				th.detach();
@@ -113,7 +113,7 @@ void Lane::_Update(bool *isImpact) {
 			drawObject();
 			if (PlayerIsHere()) drawPlayer();
 			mtx.unlock();
-			Sleep(getSpeed());
+			Sleep(getSpeed() - 25*(*mode));
 			if (*isImpact) {
 				if (PlayerIsHere()) player->drawEffect(lane * 9 + 7);
 				return;
