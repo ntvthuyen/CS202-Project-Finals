@@ -3,6 +3,7 @@
 #define _GAME_H_
 #include "Level.h"
 #include "menu.h"
+#include "file.h"
 #include <conio.h>
 
 using namespace std;
@@ -15,7 +16,7 @@ private:
 	bool ONSOUND;
 public:
 	Game(Player * player, vector<Level> levelList, int level = 0, int mode = 1): player(player), levelList(levelList), level(level), ONSOUND(true), mode(mode){}
-	void playing();
+	void playing(vector<Player> &playerlist);
 	void drawLevel();
 
 };
